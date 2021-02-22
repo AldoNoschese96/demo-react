@@ -1,4 +1,7 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
+
+//Ui Kit
 import { makeStyles } from "@material-ui/core/styles";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
@@ -6,6 +9,7 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+
 //State
 import Context from "../state/Context";
 import * as ACTIONS from "../state/ActionTypes/actionsType";
@@ -85,6 +89,9 @@ const SpeedDialMenu = ({ classSelected }) => {
       </SpeedDial>
     </div>
   );
+};
+SpeedDialMenu.propTypes = {
+  classSelected: PropTypes.bool,
 };
 
 export default SpeedDialMenu;

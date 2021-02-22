@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 //Ui Kit
 import Box from "@material-ui/core/Box";
@@ -160,6 +161,10 @@ const ClassTable = ({ classes }) => {
       </Box>
     </>
   );
+};
+
+ClassTable.propTypes = {
+  classes: PropTypes.array,
 };
 
 export default ClassTable;

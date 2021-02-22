@@ -1,4 +1,7 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
+
+//Ui Kit
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -96,6 +99,11 @@ const MenuTable = ({ classType, idRow }) => {
       </Menu>
     </div>
   );
+};
+
+MenuTable.propTypes = {
+  classType: PropTypes.string,
+  idRow: PropTypes.string,
 };
 
 export default MenuTable;

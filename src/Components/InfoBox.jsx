@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import styled from "styled-components";
 
@@ -23,4 +24,9 @@ const StyledBox = styled.div`
     padding-top: 0.5rem;
   }
 `;
+
+InfoBox.propTypes = {
+  title: PropTypes.string,
+  data: PropTypes.number,
+};
 export default InfoBox;

@@ -62,7 +62,7 @@ const ClassForm = (props) => {
       validate={validate}
       render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} noValidate>
-          <Grid container maxWidth>
+          <Grid container>
             <Grid item xs={12} className={uiClasses.padGrid}>
               <label htmlFor="year">Year</label>
               <TextField name="year" id="year" required={true} />

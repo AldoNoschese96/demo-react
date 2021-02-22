@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 
 import { Form } from "react-final-form";
 import { TextField } from "mui-rff";
@@ -71,7 +72,7 @@ const StudentsForm = (props) => {
       validate={validate}
       render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} noValidate>
-          <Grid container maxWidth alignItems="center" justify="space-between">
+          <Grid container alignItems="center" justify="space-between">
             <Grid className={uiClasses.padGrid} item xs={12} sm={6}>
               <label htmlFor="name">Name</label>
               <TextField type="text" id="name" name="name" required={true} />
@@ -119,5 +120,7 @@ const StudentsForm = (props) => {
     />
   );
 };
-
+StudentsForm.propTypes = {
+  initialValues: PropTypes.object,
+};
 export default StudentsForm;
