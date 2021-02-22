@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  tr {
+    cursor: pointer;
+  }
+}
+.vh-100 {
+  min-height: 100vh;
+}
+
+.addClass {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

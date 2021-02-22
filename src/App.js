@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
 
-function App() {
+//GlobalStyle
+import "./style/app.scss";
+
+//Theme
+import theme from "./theme";
+import { ThemeProvider } from "@material-ui/core/styles";
+//Import Pages
+import HomePage from "./pages/HomePage";
+
+//Import Modal
+import ModalClass from "./Components/ModalClass";
+import ModalStudent from "./Components/ModalStudent";
+
+//Import Component
+import AppBarHeader from "./Components/AppBar";
+import SpeedDialMenu from "./Components/SpeedDialMenu";
+
+//Import State
+import Context from "./state/Context";
+
+const App = () => {
+  const { state, dispatch } = useContext(Context);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <AppBarHeader />
+        <ModalClass />
+        <ModalStudent />
+        <HomePage />
+      </div>
+      <SpeedDialMenu classSelected={state.tableStudentsInView} />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
