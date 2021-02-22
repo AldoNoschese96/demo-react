@@ -59,6 +59,26 @@ const StudentTable = ({ students }) => {
       return dateY - dateX;
     });
 
+    sorted.map((x) => {
+      const dateFt = new Date(x.birthDate).toLocaleDateString();
+
+      const dateArr = dateFt.split("/");
+
+      console.log(dateArr);
+
+      if (parseInt(dateArr[0]) < 10) {
+        dateArr[0] = `0${dateArr[0]}`;
+        console.log(dateArr[0]);
+      }
+      if (parseInt(dateArr[1]) < 10) {
+        dateArr[1] = `0${dateArr[1]}`;
+        console.log(dateArr[1]);
+      }
+
+      const finalDate = dateArr.join("/");
+      return (x.birthDate = finalDate);
+    });
+
     return setStudentState(sorted);
   };
 
