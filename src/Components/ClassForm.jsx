@@ -7,10 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 //State
 import Context from "../state/Context";
-import * as ACTIONS from "../state/ActionTypes/actionsType";
 
-//Api
-import { newClassroom, editClasss } from "../api/classroomsApi";
+//Actions
+import useActions from "../state/useActions";
 
 const useStyles = makeStyles((theme) => ({
   padGrid: {
@@ -24,28 +23,16 @@ const useStyles = makeStyles((theme) => ({
 
 const ClassForm = (props) => {
   const uiClasses = useStyles();
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
+  const { dispatchNewClassroom, dispatchEditClassroom } = useActions();
   const { initialValues } = props;
 
   async function onSubmit(values) {
     if (!initialValues) {
-      const result = await newClassroom(values);
-
-      dispatch({ type: ACTIONS.NEW_CLASSROOM, payload: result });
-      dispatch({ type: ACTIONS.SHOW_ALERT_SUCCESS });
-      setTimeout(() => {
-        dispatch({ type: ACTIONS.CLOSE_ALERT_SUCCESS });
-      }, 2000);
-      return dispatch({ type: ACTIONS.CLOSE_MODAL_CLASS });
+      return dispatchNewClassroom(values);
     } else {
       const getClassId = state.classroomEditSelected._id;
-
-      const { data } = await editClasss(getClassId, values);
-      dispatch({ type: ACTIONS.SHOW_ALERT_SUCCESS });
-      setTimeout(() => {
-        dispatch({ type: ACTIONS.CLOSE_ALERT_SUCCESS });
-      }, 2000);
-      return dispatch({ type: ACTIONS.EDIT_CLASSROOM, payload: data });
+      return dispatchEditClassroom(getClassId, values);
     }
   }
 

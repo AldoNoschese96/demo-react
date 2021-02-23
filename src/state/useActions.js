@@ -7,7 +7,12 @@ import Context from "./Context";
 import * as A from "./ActionTypes/actionsType";
 
 //Api
-import { getAllClassrooms, deleteClass } from "../api/classroomsApi";
+import {
+  getAllClassrooms,
+  deleteClass,
+  newClassroom,
+  editClasss,
+} from "../api/classroomsApi";
 import {
   getStudentsLength,
   getAllStudentByClass,
@@ -72,6 +77,22 @@ export default function useActions() {
     }, 2000);
   };
 
+  const dispatchCloseModalClass = () => dispatch({ type: A.CLOSE_MODAL_CLASS });
+
+  const dispatchNewClassroom = async (values) => {
+    const result = await newClassroom(values);
+    dispatchCloseModalClass();
+    dispatchToggleAlert();
+    return dispatch({ type: A.NEW_CLASSROOM, payload: result });
+  };
+
+  const dispatchEditClassroom = async (id, values) => {
+    const { data } = await editClasss(id, values);
+    dispatchCloseModalClass();
+    dispatchToggleAlert();
+    return dispatch({ type: A.EDIT_CLASSROOM, payload: data });
+  };
+
   const dispatchOpenModalEditClass = (id) =>
     dispatch({ type: A.OPEN_MODAL_EDIT_CLASSROOM, payload: id });
 
@@ -88,5 +109,7 @@ export default function useActions() {
     dispatchStudentDelete,
     dispatchOpenModalEditClass,
     dispatchOpenModalEditStudent,
+    dispatchNewClassroom,
+    dispatchEditClassroom,
   };
 }
