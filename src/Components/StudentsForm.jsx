@@ -54,7 +54,7 @@ const StudentsForm = (props) => {
 
   async function validate(values) {
     const errors = {};
-
+    console.log(values);
     if (!values.name) {
       errors.name = "Name Is Required";
     }
@@ -103,7 +103,10 @@ const StudentsForm = (props) => {
                 required={true}
                 animateYearScrolling
                 value={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                onChange={(date) => {
+                  setSelectedDate(date);
+                  values.birthDate = date;
+                }}
                 format="dd-MM-yyyy"
               />
             </Grid>
