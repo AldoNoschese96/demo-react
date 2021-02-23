@@ -112,6 +112,30 @@ const StudentTable = ({ students }) => {
         <Slide direction="up" in={students} mountOnEnter unmountOnExit>
           <Paper>
             <BeeGrid
+              table={{
+                columnExtensions: [
+                  {
+                    columnName: "ciao",
+                    width: 100,
+                  },
+                  {
+                    columnName: "name",
+                    width: 100,
+                  },
+                  {
+                    columnName: "surname",
+                    width: 100,
+                  },
+                  {
+                    columnName: "number",
+                    width: 300,
+                  },
+                  {
+                    columnName: "birthdate",
+                    width: 100,
+                  },
+                ],
+              }}
               columns={columns}
               rows={studentsState && studentsState.map((s) => s)}
               providers={[
