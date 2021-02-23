@@ -29,7 +29,5 @@ export const editStudent = async (id, payload) => {
 export const getStudentsLength = async () => {
   const result = await axios.get(`${baseUrl}/length`);
 
-  console.log(result);
-
   return result;
 };

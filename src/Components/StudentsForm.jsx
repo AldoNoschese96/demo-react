@@ -10,10 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { DatePicker } from "@material-ui/pickers/DatePicker";
 //State
 import Context from "../state/Context";
-import * as ACTIONS from "../state/ActionTypes/actionsType";
 
-//Api
-import { newStudent, editStudent } from "../api/studentsApi";
+//Actions
+import useActions from "../state/useActions";
 
 const useStyles = makeStyles((theme) => ({
   padGrid: {
@@ -27,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 const StudentsForm = (props) => {
   const uiClasses = useStyles();
-  const { state, dispatch } = useContext(Context);
+  const { dispatchNewStudent, dispatchStudentEdit } = useActions();
+  const { state } = useContext(Context);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { initialValues } = props;
 
@@ -38,10 +38,7 @@ const StudentsForm = (props) => {
         classroomId: state.classroomSelected,
         birthDate: selectedDate,
       };
-      const result = await newStudent(payload);
-
-      dispatch({ type: ACTIONS.NEW_STUDENT, payload: result });
-      return dispatch({ type: ACTIONS.CLOSE_MODAL_STUDENTS });
+      return dispatchNewStudent(payload);
     } else {
       const payload = {
         ...values,
@@ -51,9 +48,7 @@ const StudentsForm = (props) => {
 
       const getStudentId = state.studentSelected._id;
 
-      const { data } = await editStudent(getStudentId, payload);
-
-      return dispatch({ type: ACTIONS.EDIT_STUDENT, payload: data });
+      return dispatchStudentEdit(getStudentId, payload);
     }
   }
 
@@ -74,6 +69,8 @@ const StudentsForm = (props) => {
   useEffect(() => {
     if (initialValues) {
       setSelectedDate(initialValues.birthDate);
+    } else {
+      setSelectedDate(new Date());
     }
   }, [initialValues]);
   return (

@@ -7,18 +7,17 @@ import { BeeGrid } from "@webeetle/bee-theme";
 
 // Import State
 import Context from "../state/Context";
-import * as ACTIONS from "../state/ActionTypes/actionsType";
 
 // Import Components
 import MenuTable from "../Components/MenuTable";
 import Card from "../Components/Card";
 
-// Import Api
-import { getAllStudentByClass } from "../api/studentsApi";
+//useActions
+import useActions from "../state/useActions";
 
 const ClassTable = ({ classes }) => {
-  const { state, dispatch } = useContext(Context);
-
+  const { state } = useContext(Context);
+  const { dispatchStudentsByClass } = useActions();
   const [classrooms, setClassrooms] = useState(
     classes.sort((x, y) => y.code - x.code)
   );
@@ -28,21 +27,11 @@ const ClassTable = ({ classes }) => {
   const setSelectionHandler = async (e) => {
     const classroomsArr = [...state.classrooms];
     if (e.length === 0) {
-      const result = await getAllStudentByClass(classroomsArr[0]._id);
-      dispatch({
-        type: ACTIONS.GET_CLASSROOM_SELECTED,
-        payload: classroomsArr[0]._id,
-      });
-      dispatch({ type: ACTIONS.LOAD_STUDENTS_CLASSROOM, payload: result });
+      dispatchStudentsByClass(classroomsArr[0]._id);
       return setSel([0]);
     } else {
       const i = e.pop();
-      const result = await getAllStudentByClass(classroomsArr[i]._id);
-      dispatch({ type: ACTIONS.LOAD_STUDENTS_CLASSROOM, payload: result });
-      dispatch({
-        type: ACTIONS.GET_CLASSROOM_SELECTED,
-        payload: classroomsArr[i]._id,
-      });
+      dispatchStudentsByClass(classroomsArr[i]._id);
       return setSel([i]);
     }
   };

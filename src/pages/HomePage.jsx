@@ -11,12 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
 // State
 import Context from "../state/Context";
-// Action Types
-import * as ACTIONS from "../state/ActionTypes/actionsType";
 
-//Api
-import { getAllClassrooms } from "../api/classroomsApi";
-import { getStudentsLength } from "../api/studentsApi";
+import useActions from "../state/useActions";
 
 const useStyles = makeStyles((theme) => ({
   c: {
@@ -36,21 +32,14 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-  const loadClassRoomsHandler = async () => {
-    const result = await getAllClassrooms();
-    return dispatch({ type: ACTIONS.LOAD_CLASSROOMS, payload: result });
-  };
 
-  const loadStudentsLength = async () => {
-    const { data } = await getStudentsLength();
-    return dispatch({ type: ACTIONS.LOAD_TOTAL_STUDENTS, payload: data });
-  };
+  const { dispatchAllClassrooms, dispatchStudentsLength } = useActions();
 
   useEffect(() => {
-    loadClassRoomsHandler();
-    loadStudentsLength();
+    dispatchAllClassrooms();
+    dispatchStudentsLength();
   }, []);
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
   return (
     <>
       <Grid

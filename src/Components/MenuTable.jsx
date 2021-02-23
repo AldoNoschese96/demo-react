@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 //Ui Kit
@@ -7,13 +7,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-// Import Api
-import { deleteStudent } from "../api/studentsApi";
-import { deleteClass } from "../api/classroomsApi";
-
-// Import State
-import Context from "../state/Context";
-import * as ACTIONS from "../state/ActionTypes/actionsType";
+//Import Action
+import useActions from "../state/useActions";
 
 const ITEM_HEIGHT = 48;
 
@@ -22,46 +17,32 @@ const MenuTable = ({ classType, idRow }) => {
     `${classType === "Class" ? "Modifica Classe" : "Modifica Studente"}`,
     `${classType === "Class" ? "Elimina Classe" : "Elimina Studente"}`,
   ];
-  const { dispatch } = useContext(Context);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const {
+    dispatchClassDelete,
+    dispatchStudentDelete,
+    dispatchOpenModalEditClass,
+    dispatchOpenModalEditStudent,
+  } = useActions();
   const handleClick = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
-  const deleteClassHandler = async (id) => {
-    const result = await deleteClass(id);
-    if (result === 204) {
-      return dispatch({ type: ACTIONS.DELETE_CLASSROOM, payload: id });
-    }
-  };
-
-  const deleteStudentHandler = async (id) => {
-    const result = await deleteStudent(id);
-    if (result === 204) {
-      return dispatch({ type: ACTIONS.DELETE_STUDENT, payload: id });
-    }
-  };
-
   const handleClose = (e, idRow, option) => {
     e.stopPropagation();
     setAnchorEl(null);
+
     switch (option) {
       case "Elimina Classe":
-        return deleteClassHandler(idRow);
+        return dispatchClassDelete(idRow);
       case "Modifica Classe":
-        return dispatch({
-          type: ACTIONS.OPEN_MODAL_EDIT_CLASSROOM,
-          payload: idRow,
-        });
+        return dispatchOpenModalEditClass(idRow);
       case "Modifica Studente":
-        return dispatch({
-          type: ACTIONS.OPEN_MODAL_EDIT_STUDENTS,
-          payload: idRow,
-        });
+        return dispatchOpenModalEditStudent(idRow);
       case "Elimina Studente":
-        return deleteStudentHandler(idRow);
+        return dispatchStudentDelete(idRow);
       default:
         return;
     }
