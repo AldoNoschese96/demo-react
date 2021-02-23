@@ -16,6 +16,7 @@ import ModalStudent from "./Components/ModalStudent";
 //Import Component
 import AppBarHeader from "./Components/AppBar";
 import SpeedDialMenu from "./Components/SpeedDialMenu";
+import AlertComponent from "./Components/AlertComponent";
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 import DateFnsUtils from "@date-io/date-fns";
 import { it } from "date-fns/locale";
@@ -29,12 +30,13 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider locale={it} utils={DateFnsUtils}>
         <div className="App">
+          <AlertComponent show={state.showAlertSuccess} />
           <AppBarHeader />
           <ModalClass />
           <ModalStudent />
           <HomePage />
+          <SpeedDialMenu classSelected={state.tableStudentsInView} />
         </div>
-        <SpeedDialMenu classSelected={state.tableStudentsInView} />
       </MuiPickersUtilsProvider>
     </ThemeProvider>
   );

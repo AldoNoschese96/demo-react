@@ -32,12 +32,19 @@ const ClassForm = (props) => {
       const result = await newClassroom(values);
 
       dispatch({ type: ACTIONS.NEW_CLASSROOM, payload: result });
+      dispatch({ type: ACTIONS.SHOW_ALERT_SUCCESS });
+      setTimeout(() => {
+        dispatch({ type: ACTIONS.CLOSE_ALERT_SUCCESS });
+      }, 2000);
       return dispatch({ type: ACTIONS.CLOSE_MODAL_CLASS });
     } else {
       const getClassId = state.classroomEditSelected._id;
 
       const { data } = await editClasss(getClassId, values);
-
+      dispatch({ type: ACTIONS.SHOW_ALERT_SUCCESS });
+      setTimeout(() => {
+        dispatch({ type: ACTIONS.CLOSE_ALERT_SUCCESS });
+      }, 2000);
       return dispatch({ type: ACTIONS.EDIT_CLASSROOM, payload: data });
     }
   }

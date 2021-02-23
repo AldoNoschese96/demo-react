@@ -21,6 +21,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         classrooms: [...state.classrooms, { ...action.payload }],
+        showAlertSuccess: true,
       };
     case ACTIONS.LOAD_STUDENTS_CLASSROOM:
       return {
@@ -129,6 +130,16 @@ const reducer = (state, action) => {
         ...state,
         viewTotals: !state.viewTotals,
       };
+    case ACTIONS.SHOW_ALERT_SUCCESS:
+      return {
+        ...state,
+        showAlertSuccess: true,
+      };
+    case ACTIONS.CLOSE_ALERT_SUCCESS:
+      return {
+        ...state,
+        showAlertSuccess: false,
+      };
     default:
       return state;
   }
@@ -149,6 +160,7 @@ const useGlobaState = () => {
     laodingClassrooms: true,
     studentsLength: 0,
     viewTotals: false,
+    showAlertSuccess: false,
   });
 
   return { state, dispatch };
