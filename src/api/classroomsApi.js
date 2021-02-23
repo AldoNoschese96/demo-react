@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/api/classroom";
+const baseUrl = `${process.env.REACT_APP_BASE_URL}/api/classroom`;
 
 export const getAllClassrooms = async () => {
   const { data } = await axios.get(baseUrl);

@@ -12,6 +12,7 @@ import * as ACTIONS from "../state/ActionTypes/actionsType";
 
 // Import Components
 import MenuTable from "../Components/MenuTable";
+import Card from "../Components/Card";
 
 // Import Api
 import { getAllStudentByClass } from "../api/studentsApi";
@@ -106,7 +107,7 @@ const ClassTable = ({ classes }) => {
   return (
     <>
       <Box>
-        <Paper>
+        <Card header={"Class"}>
           <BeeGrid
             table={{
               columnExtensions: [
@@ -157,7 +158,7 @@ const ClassTable = ({ classes }) => {
               showSortingControls: true,
             }}
           />
-        </Paper>
+        </Card>
       </Box>
     </>
   );

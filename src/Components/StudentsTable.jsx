@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Slide from "@material-ui/core/Slide";
 // Import Components
 import MenuTable from "../Components/MenuTable";
+import Card from "../Components/Card";
 
 const columns = [
   {
@@ -41,7 +42,7 @@ const StudentTable = ({ students }) => {
   };
 
   const searching = (e) => {
-    if (studentsState && e.length > 0) {
+    if (e.length > 0) {
       return setStudentState(
         students.filter((x) => x.name.toLowerCase().includes(e.toLowerCase()))
       );
@@ -109,62 +110,60 @@ const StudentTable = ({ students }) => {
   return (
     <>
       <Box>
-        <Slide direction="up" in={students} mountOnEnter unmountOnExit>
-          <Paper>
-            <BeeGrid
-              table={{
-                columnExtensions: [
-                  {
-                    columnName: "ciao",
-                    width: 100,
-                  },
-                  {
-                    columnName: "name",
-                    width: 100,
-                  },
-                  {
-                    columnName: "surname",
-                    width: 100,
-                  },
-                  {
-                    columnName: "number",
-                    width: 300,
-                  },
-                  {
-                    columnName: "birthdate",
-                    width: 100,
-                  },
-                ],
-              }}
-              columns={columns}
-              rows={studentsState && studentsState.map((s) => s)}
-              providers={[
+        <Card header={"Studenti"}>
+          <BeeGrid
+            table={{
+              columnExtensions: [
                 {
-                  for: ["cta"],
-                  formatterComponent: (e) => renderMenuHandler(e.row._id),
+                  columnName: "ciao",
+                  width: 100,
                 },
-              ]}
-              loading={studentsState ? false : true}
-              search={{
-                onValueChange: (e) => searching(e),
-              }}
-              paging={{
-                defaultCurrentPage: 0,
-                defaultPageSize: 10,
-              }}
-              sorting={{
-                onSortingChange: (e) => sortingByBirthDate(e),
-                showSortingControls: true,
-                sorting: [
-                  {
-                    columnName: "birthDate",
-                    direction: sortingState,
-                  },
-                ],
-              }}
-            />
-          </Paper>
-        </Slide>
+                {
+                  columnName: "name",
+                  width: 100,
+                },
+                {
+                  columnName: "surname",
+                  width: 100,
+                },
+                {
+                  columnName: "number",
+                  width: 300,
+                },
+                {
+                  columnName: "birthdate",
+                  width: 100,
+                },
+              ],
+            }}
+            columns={columns}
+            rows={studentsState && studentsState.map((s) => s)}
+            providers={[
+              {
+                for: ["cta"],
+                formatterComponent: (e) => renderMenuHandler(e.row._id),
+              },
+            ]}
+            loading={studentsState ? false : true}
+            search={{
+              onValueChange: (e) => searching(e),
+            }}
+            paging={{
+              defaultCurrentPage: 0,
+              defaultPageSize: 10,
+            }}
+            sorting={{
+              onSortingChange: (e) => sortingByBirthDate(e),
+              showSortingControls: true,
+              sorting: [
+                {
+                  columnName: "birthDate",
+                  direction: sortingState,
+                },
+              ],
+            }}
+          />
+        </Card>
       </Box>
     </>
   );

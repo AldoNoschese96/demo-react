@@ -4,11 +4,11 @@ import React, { useContext, useEffect } from "react";
 import ClassTable from "../Components/ClassTable";
 import StudentsTable from "../Components/StudentsTable";
 import InfoBox from "../Components/InfoBox";
+
 //UI KIT
 import { Box, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
-
 // State
 import Context from "../state/Context";
 // Action Types
@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-
   const loadClassRoomsHandler = async () => {
     const result = await getAllClassrooms();
     return dispatch({ type: ACTIONS.LOAD_CLASSROOMS, payload: result });
@@ -44,7 +43,6 @@ const HomePage = () => {
 
   const loadStudentsLength = async () => {
     const { data } = await getStudentsLength();
-
     return dispatch({ type: ACTIONS.LOAD_TOTAL_STUDENTS, payload: data });
   };
 

@@ -29,6 +29,7 @@ const ModalStudent = () => {
   return (
     <>
       <BeeDialog
+        color="primary"
         open={state.modalStudentsOpened}
         title={state.modalStudentEdit ? "Modifica Studente" : "Nuovo Studente"}
         onClose={handleClose}
