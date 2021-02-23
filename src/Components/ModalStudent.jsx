@@ -1,14 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 //Import UI KIT
-import { BeeDialog, BeeButton } from "@webeetle/bee-theme";
-import { TextField, Grid, Container } from "@material-ui/core";
+import { BeeDialog } from "@webeetle/bee-theme";
 
 //Import State
 import Context from "../state/Context";
 //Import Actions
 import * as ACTIONS from "../state/ActionTypes/actionsType";
-//Import Api
-import { newStudent, editStudent } from "../api/studentsApi";
 
 //Import Form
 import StudentsForm from "../Components/StudentsForm";
@@ -29,7 +26,7 @@ const ModalStudent = () => {
   return (
     <>
       <BeeDialog
-        color="primary"
+        color={"primary"}
         open={state.modalStudentsOpened}
         title={state.modalStudentEdit ? "Modifica Studente" : "Nuovo Studente"}
         onClose={handleClose}

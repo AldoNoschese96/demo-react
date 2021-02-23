@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
+//Components
+import ClassForm from "../Components/ClassForm";
 
 // UI Kit
-import { BeeDialog, BeeButton } from "@webeetle/bee-theme";
-import { TextField, Grid, Container } from "@material-ui/core";
-
-import ClassForm from "../Components/ClassForm";
+import { BeeDialog } from "@webeetle/bee-theme";
 
 //Import State
 import Context from "../state/Context";
@@ -27,7 +26,7 @@ const ModalClass = () => {
   return (
     <>
       <BeeDialog
-        color="primary"
+        color={"primary"}
         open={state.modalClassOpened}
         title={state.modalClassEdit ? "Modifica Classe" : "Nuova Classe"}
         onClose={handleClose}

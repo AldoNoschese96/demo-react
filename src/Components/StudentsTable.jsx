@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 //Ui Kit
 import Box from "@material-ui/core/Box";
 import { BeeGrid } from "@webeetle/bee-theme";
-import Paper from "@material-ui/core/Paper";
-import Slide from "@material-ui/core/Slide";
 // Import Components
 import MenuTable from "../Components/MenuTable";
 import Card from "../Components/Card";
+
+import moment from "moment";
 
 const columns = [
   {
@@ -60,27 +60,6 @@ const StudentTable = ({ students }) => {
 
       return dateY - dateX;
     });
-
-    /* TODO : Controllare Problema Format Date , 
-
-      Quando Clicco Su Modifica , il campo input data , 
-      non prende il formato corretto(solo se formatto la data)
-      controllare se possibile cambiare formato accettato dall'input , 
-      altrimenti verificare DatePicker.
-     */
-
-    // sorted.map((x) => {
-    //   const dateFt = new Date(x.birthDate).toLocaleDateString();
-    //   const dateArr = dateFt.split("/");
-    //   if (parseInt(dateArr[0]) < 10) {
-    //     dateArr[0] = `0${dateArr[0]}`;
-    //   }
-    //   if (parseInt(dateArr[1]) < 10) {
-    //     dateArr[1] = `0${dateArr[1]}`;
-    //   }
-    //   const finalDate = dateArr.join("/");
-    //   return (x.birthDate = finalDate);
-    // });
 
     return setStudentState(sorted);
   };
@@ -142,6 +121,13 @@ const StudentTable = ({ students }) => {
               {
                 for: ["cta"],
                 formatterComponent: (e) => renderMenuHandler(e.row._id),
+              },
+              {
+                for: ["birthDate"],
+                formatterComponent: (e) => {
+                  console.log(e);
+                  return moment(e.row.birthDate).format("DD/MM/YYYY");
+                },
               },
             ]}
             loading={studentsState ? false : true}

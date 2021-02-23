@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { Form } from "react-final-form";
@@ -6,6 +6,8 @@ import { TextField } from "mui-rff";
 import { BeeButton } from "@webeetle/bee-theme";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { DatePicker } from "@material-ui/pickers/DatePicker";
 //State
 import Context from "../state/Context";
 import * as ACTIONS from "../state/ActionTypes/actionsType";
@@ -26,30 +28,35 @@ const useStyles = makeStyles((theme) => ({
 const StudentsForm = (props) => {
   const uiClasses = useStyles();
   const { state, dispatch } = useContext(Context);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const { initialValues } = props;
 
-  // yes, this can even be async!
   async function onSubmit(values) {
     if (!initialValues) {
       const payload = {
         ...values,
         classroomId: state.classroomSelected,
+        birthDate: selectedDate,
       };
-      console.log(payload);
       const result = await newStudent(payload);
 
       dispatch({ type: ACTIONS.NEW_STUDENT, payload: result });
       return dispatch({ type: ACTIONS.CLOSE_MODAL_STUDENTS });
     } else {
+      const payload = {
+        ...values,
+        classroomId: state.classroomSelected,
+        birthDate: selectedDate,
+      };
+
       const getStudentId = state.studentSelected._id;
 
-      const { data } = await editStudent(getStudentId, values);
+      const { data } = await editStudent(getStudentId, payload);
 
       return dispatch({ type: ACTIONS.EDIT_STUDENT, payload: data });
     }
   }
 
-  // yes, this can even be async!
   async function validate(values) {
     const errors = {};
 
@@ -64,7 +71,11 @@ const StudentsForm = (props) => {
     }
     return errors;
   }
-
+  useEffect(() => {
+    if (initialValues) {
+      setSelectedDate(initialValues.birthDate);
+    }
+  }, [initialValues]);
   return (
     <Form
       onSubmit={onSubmit}
@@ -88,12 +99,15 @@ const StudentsForm = (props) => {
             </Grid>
             <Grid item className={uiClasses.padGrid} xs={12} sm={6}>
               <label htmlFor="birthDate">Data Di Nascita</label>
-              <TextField
+              <DatePicker
+                fullWidth
                 id="birthDate"
-                type="date"
-                InputLabelProps={{ shrink: true }}
                 name="birthDate"
                 required={true}
+                animateYearScrolling
+                value={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                format="dd-MM-yyyy"
               />
             </Grid>
             <Grid item className={uiClasses.padGrid} xs={12} sm={6}>

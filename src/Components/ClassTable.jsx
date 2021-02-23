@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 //Ui Kit
 import Box from "@material-ui/core/Box";
 import { BeeGrid } from "@webeetle/bee-theme";
-import Paper from "@material-ui/core/Paper";
 
 // Import State
 import Context from "../state/Context";
@@ -107,7 +106,7 @@ const ClassTable = ({ classes }) => {
   return (
     <>
       <Box>
-        <Card header={"Class"}>
+        <Card header={"Classi"}>
           <BeeGrid
             table={{
               columnExtensions: [
