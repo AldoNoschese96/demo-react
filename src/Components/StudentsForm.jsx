@@ -54,7 +54,6 @@ const StudentsForm = (props) => {
 
   async function validate(values) {
     const errors = {};
-    console.log(values);
     if (!values.name) {
       errors.name = "Name Is Required";
     }
